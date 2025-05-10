@@ -20,7 +20,7 @@ Un script en Python que cambia automáticamente entre tema claro y oscuro de Win
 
 1. **Clona este repositorio**:
    ```bash
-   git clone https://github.com/tu-usuario/theme-wallpaper-switcher.git
+   git clone https://github.com/jerkey06/theme-wallpaper-switcher.git
    cd theme-wallpaper-switcher
    ```
 
@@ -139,6 +139,6 @@ Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](L
 
 ## 📧 Contacto
 
-[Tu Nombre] - [tu@email.com]
+Emi - contactojkemi@gmail.com
 
-Link del proyecto: [https://github.com/tu-usuario/theme-wallpaper-switcher](https://github.com/tu-usuario/theme-wallpaper-switcher)
+Link del proyecto: [https://github.com/jerkey06/Theme-switcher](https://github.com/jerkey06/Theme-wallpaper-switcher)
