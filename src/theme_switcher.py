@@ -1,13 +1,10 @@
 import os
 import time
 import datetime
-import subprocess
 import ctypes
 import winreg
 import sys
 import logging
-import json
-from pathlib import Path
 
 # Logging configuration
 logging.basicConfig(
@@ -22,12 +19,6 @@ logging.basicConfig(
 class Config:
     LIGHT_THEME_START = 7   # 7:00 AM
     DARK_THEME_START = 19   # 7:00 PM
-
-    LIGHT_WALLPAPER_ID = "1234567890"
-    DARK_WALLPAPER_ID = "0987654321"
-
-    WALLPAPER_ENGINE_PATH = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\wallpaper_engine\\wallpaper32.exe"
-    WALLPAPER_CONFIG_PATH = os.path.join(os.environ["APPDATA"], "Wallpaper Engine")
 
 def is_dark_theme_active():
     """Check if dark mode is currently active"""
@@ -55,54 +46,6 @@ def set_windows_theme(use_dark):
         logging.error(f"Error setting theme: {e}")
         return False
 
-def change_wallpaper_engine(use_dark):
-    """Change wallpaper using Wallpaper Engine"""
-    try:
-        wallpaper_id = Config.DARK_WALLPAPER_ID if use_dark else Config.LIGHT_WALLPAPER_ID
-        theme_name = "dark" if use_dark else "light"
-
-        if not os.path.exists(Config.WALLPAPER_ENGINE_PATH):
-            logging.error("Wallpaper Engine not found")
-            return False
-
-        try:
-            subprocess.run(["taskkill", "/F", "/IM", "wallpaper32.exe", "/T"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            subprocess.run(["taskkill", "/F", "/IM", "wallpaper64.exe", "/T"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            time.sleep(1)
-
-            workshop_url = f"steam://run/431960//args//-control openworkshop:{wallpaper_id}"
-            subprocess.Popen(["start", "", workshop_url], shell=True)
-
-            logging.info(f"Wallpaper switched to {theme_name} (ID: {wallpaper_id})")
-            return True
-        except Exception as e:
-            logging.warning(f"Method 1 failed: {e}")
-
-        try:
-            general_config = os.path.join(Config.WALLPAPER_CONFIG_PATH, "general.json")
-            if os.path.exists(general_config):
-                with open(general_config, 'r') as f:
-                    config = json.load(f)
-                config["wallpaperWorkshopId"] = wallpaper_id
-                with open(general_config, 'w') as f:
-                    json.dump(config, f, indent=2)
-
-                subprocess.run(["taskkill", "/F", "/IM", "wallpaper32.exe", "/T"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                subprocess.run(["taskkill", "/F", "/IM", "wallpaper64.exe", "/T"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                time.sleep(1)
-
-                subprocess.Popen([Config.WALLPAPER_ENGINE_PATH])
-
-                logging.info(f"Wallpaper changed to {theme_name} via config (ID: {wallpaper_id})")
-                return True
-        except Exception as e:
-            logging.error(f"Method 2 failed: {e}")
-            return False
-
-    except Exception as e:
-        logging.error(f"Unexpected error changing wallpaper: {e}")
-        return False
-
 def get_appropriate_theme():
     """Determine appropriate theme based on current hour"""
     current_hour = datetime.datetime.now().hour
@@ -116,7 +59,6 @@ def check_and_update():
         theme_name = "dark" if use_dark else "light"
         logging.info(f"Switching to {theme_name} theme ({datetime.datetime.now().strftime('%H:%M')})")
         set_windows_theme(use_dark)
-        change_wallpaper_engine(use_dark)
 
 def create_startup_shortcut():
     """Create a shortcut to run the script on Windows startup"""
