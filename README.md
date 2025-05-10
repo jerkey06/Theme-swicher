@@ -33,12 +33,12 @@ Un script en Python que cambia automáticamente entre tema claro y oscuro de Win
 
 4. **Ejecuta el script**:
    ```bash
-   python theme_wallpaper_switcher.py
+   python theme_switcher.py
    ```
 
 5. **Para que inicie automáticamente con Windows**:
    ```bash
-   python theme_wallpaper_switcher.py --install
+   python theme_switcher.py --install
    ```
 
 ## ⚙️ Configuración
@@ -141,4 +141,4 @@ Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](L
 
 Emi - contactojkemi@gmail.com
 
-Link del proyecto: [https://github.com/jerkey06/Theme-switcher](https://github.com/jerkey06/Theme-wallpaper-switcher)
+Link del proyecto: [https://github.com/jerkey06/Theme-switcher](https://github.com/jerkey06/theme-wallpaper-switcher)
