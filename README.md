@@ -33,12 +33,12 @@ Un script en Python que cambia automáticamente entre tema claro y oscuro de Win
 
 4. **Ejecuta el script**:
    ```bash
-   python theme_switcher.py
+   python src/theme_switcher.py
    ```
 
 5. **Para que inicie automáticamente con Windows**:
    ```bash
-   python theme_switcher.py --install
+   python src/theme_switcher.py --install
    ```
 
 ## ⚙️ Configuración
